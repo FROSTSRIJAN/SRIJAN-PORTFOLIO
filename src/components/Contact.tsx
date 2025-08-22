@@ -41,19 +41,19 @@ const Contact = () => {
     {
       icon: <Mail className="w-5 h-5" />,
       label: "Email",
-      value: "srijanmani@example.com",
-      link: "mailto:srijanmani@example.com"
+      value: "srijantripathi64@gmail.com",
+      link: "mailto:srijantripathi64@gmail.com"
     },
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Phone",
-      value: "+91 XXX XXX XXXX",
-      link: "tel:+91XXXXXXXXXX"
+      value: "+91 7903385276",
+      link: "tel:+917903385276"
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: "Location",
-      value: "Chennai, India",
+      value: "India",
       link: ""
     }
   ];
@@ -62,25 +62,25 @@ const Contact = () => {
     {
       name: "GitHub",
       icon: <Github className="w-5 h-5" />,
-      url: "https://github.com",
+      url: "https://github.com/SrijanManiTripathi",
       color: "hover:text-gray-400"
     },
     {
       name: "LinkedIn",
       icon: <Linkedin className="w-5 h-5" />,
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/srijan-mani-tripathi-144b162a1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       color: "hover:text-blue-400"
     },
     {
       name: "Instagram",
       icon: <Instagram className="w-5 h-5" />,
-      url: "https://instagram.com/bharatmatakijai",
+      url: "https://www.instagram.com/srijan_mani_tripathi/profilecard/?igsh=ZDU0Ym50NWxteDRs",
       color: "hover:text-pink-400"
     },
     {
       name: "YouTube",
       icon: <Youtube className="w-5 h-5" />,
-      url: "https://youtube.com/@bharatmatakijai",
+      url: "https://youtu.be/U9BzVwb7bmk?feature=shared",
       color: "hover:text-red-400"
     }
   ];

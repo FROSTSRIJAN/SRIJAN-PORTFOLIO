@@ -26,6 +26,7 @@ const Projects = () => {
       ],
       icon: <Award className="w-6 h-6" />,
       color: "text-yellow-400",
+      image: "/assest/kathasaar.jpeg",
       github: "https://github.com",
       demo: "https://kathasaar-demo.com"
     },
@@ -46,6 +47,7 @@ const Projects = () => {
       ],
       icon: <Shield className="w-6 h-6" />,
       color: "text-blue-400",
+      image: "/assest/Credit card fraud detection.jpeg",
       github: "https://github.com",
       demo: "https://fraud-detection-demo.com"
     },
@@ -66,6 +68,7 @@ const Projects = () => {
       ],
       icon: <Globe className="w-6 h-6" />,
       color: "text-green-400",
+      image: "/assest/koshish website.jpeg",
       github: "https://github.com",
       demo: "https://koshish-org.com"
     }
@@ -91,27 +94,39 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Card 
                 key={project.id}
-                className="bg-card-gradient backdrop-blur-sm border-glass-border shadow-glass hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer animate-scale-in"
+                className="bg-card-gradient backdrop-blur-sm border-glass-border shadow-glass hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer animate-scale-in overflow-hidden group"
                 style={{ animationDelay: `${index * 200}ms` }}
                 onClick={() => setSelectedProject(project)}
               >
-                <CardHeader>
+                {/* Project Image */}
+                <div className="relative h-48 w-full overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Overlay Icon */}
+                  <div className="absolute top-4 right-4 p-2 rounded-full bg-black/50 backdrop-blur-sm border border-white/20">
+                    <div className={project.color}>
+                      {project.icon}
+                    </div>
+                  </div>
+                </div>
+
+                <CardHeader className="pb-3">
                   <CardTitle className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className={project.color}>
-                        {project.icon}
-                      </div>
-                      <div>
-                        <div className="text-lg font-bold">{project.title}</div>
-                        <div className="text-sm text-muted-foreground font-normal">
-                          {project.subtitle}
-                        </div>
+                    <div>
+                      <div className="text-lg font-bold">{project.title}</div>
+                      <div className="text-sm text-muted-foreground font-normal">
+                        {project.subtitle}
                       </div>
                     </div>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                <CardContent className="space-y-4 pt-0">
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                     {project.description}
                   </p>
 

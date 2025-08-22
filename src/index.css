@@ -152,6 +152,76 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    /* Mobile performance optimizations */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Mobile-optimized starfield */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(1px 1px at 20% 30%, white, transparent),
+      radial-gradient(1px 1px at 40% 70%, white, transparent),
+      radial-gradient(1px 1px at 80% 10%, white, transparent);
+    background-repeat: repeat;
+    background-size: 400px 400px, 300px 300px, 500px 500px;
+    opacity: 0.4;
+    z-index: -1;
+    pointer-events: none;
+    animation: twinkle 8s linear infinite;
+    /* Mobile performance */
+    will-change: opacity;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+    
+    body {
+      background-attachment: scroll; /* Better mobile performance */
+    }
+    
+    body::before {
+      background-size: 300px 300px, 250px 250px, 400px 400px;
+      opacity: 0.3;
+      animation-duration: 12s; /* Slower on mobile for performance */
+    }
+  }
+
+  /* Tablet optimizations */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    body::before {
+      background-size: 450px 450px, 350px 350px, 550px 550px;
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes float {
+    0%, 100% { 
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    33% { 
+      transform: translateX(20px) translateY(-20px) rotate(120deg);
+    }
+    66% { 
+      transform: translateX(-20px) translateY(20px) rotate(240deg);
+    }
   }
 
   /* Scrollbar Styling */
@@ -269,8 +339,26 @@
     }
   }
 
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh) translateX(-10px);
+      opacity: 0;
+    }
+    10%, 90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-50px) translateX(10px);
+      opacity: 0;
+    }
+  }
+
   .animate-particle {
     animation: particle-float var(--particle-speed) linear infinite;
+  }
+
+  .animate-float-up {
+    animation: float-up linear infinite;
   }
 
   /* Aurora Effect */
@@ -428,7 +516,237 @@
     animation: slide-in-right 0.8s ease-out;
   }
 
-  .animate-scale-in {
-    animation: scale-in 0.4s ease-out;
+  /* Spectacular 3D Model Animations */
+  @keyframes spectacular-glow {
+    0%, 100% {
+      filter: brightness(1) saturate(1) hue-rotate(0deg);
+      transform: scale(1);
+    }
+    25% {
+      filter: brightness(1.2) saturate(1.3) hue-rotate(90deg);
+      transform: scale(1.02);
+    }
+    50% {
+      filter: brightness(1.4) saturate(1.5) hue-rotate(180deg);
+      transform: scale(1.05);
+    }
+    75% {
+      filter: brightness(1.2) saturate(1.3) hue-rotate(270deg);
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes model-breathe {
+    0%, 100% {
+      opacity: 0.75;
+      transform: scale(1) rotateY(0deg);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.08) rotateY(180deg);
+    }
+  }
+
+  @keyframes cosmic-burst {
+    0% {
+      box-shadow: 
+        0 0 20px rgba(139, 92, 246, 0.3),
+        0 0 40px rgba(139, 92, 246, 0.2),
+        0 0 60px rgba(139, 92, 246, 0.1);
+    }
+    33% {
+      box-shadow: 
+        0 0 30px rgba(6, 182, 212, 0.4),
+        0 0 60px rgba(6, 182, 212, 0.3),
+        0 0 90px rgba(6, 182, 212, 0.2);
+    }
+    66% {
+      box-shadow: 
+        0 0 25px rgba(236, 72, 153, 0.4),
+        0 0 50px rgba(236, 72, 153, 0.3),
+        0 0 75px rgba(236, 72, 153, 0.2);
+    }
+    100% {
+      box-shadow: 
+        0 0 20px rgba(139, 92, 246, 0.3),
+        0 0 40px rgba(139, 92, 246, 0.2),
+        0 0 60px rgba(139, 92, 246, 0.1);
+    }
+  }
+
+  .animate-spectacular-glow {
+    animation: spectacular-glow 12s ease-in-out infinite;
+  }
+
+  .animate-model-breathe {
+    animation: model-breathe 8s ease-in-out infinite;
+  }
+
+  .animate-cosmic-burst {
+    animation: cosmic-burst 6s ease-in-out infinite;
+  }
+
+  /* 3D Model Container Enhancements */
+  .model-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .model-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%),
+      radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+    background-size: 80% 80%, 60% 60%;
+    animation: spectacular-glow 15s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .model-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      conic-gradient(from 0deg, 
+        transparent, 
+        rgba(139, 92, 246, 0.03), 
+        transparent, 
+        rgba(6, 182, 212, 0.03), 
+        transparent
+      );
+    animation: spin 20s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Mobile Performance Utilities */
+  .mobile-optimized {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: auto;
+  }
+
+  .gpu-accelerated {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Reduced motion for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-delay: -1ms !important;
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      background-attachment: initial !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
+    }
+  }
+
+  /* Touch device optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+      transform: none;
+    }
+    
+    .hover-glow-primary:hover {
+      box-shadow: none;
+    }
+    
+    /* Disable intensive animations on touch devices */
+    .animate-cosmic-pulse,
+    .animate-float-3d,
+    .animate-aurora {
+      animation: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --primary: 270 100% 80%;
+      --secondary: 195 100% 80%;
+      --accent: 315 100% 80%;
+    }
+  }
+
+  /* Performance mode utilities */
+  .performance-high {
+    /* Allow all 3D effects */
+  }
+
+  .performance-medium {
+    /* Limit some 3D effects */
+  }
+
+  .performance-medium .animate-cosmic-pulse,
+  .performance-medium .animate-float-3d {
+    animation-duration: 8s;
+  }
+
+  .performance-low {
+    /* Disable all intensive animations */
+  }
+
+  .performance-low .animate-cosmic-pulse,
+  .performance-low .animate-float-3d,
+  .performance-low .animate-aurora,
+  .performance-low canvas {
+    display: none !important;
+  }
+
+  .performance-low .animate-particle {
+    animation: none;
+  }
+
+  /* Memory management */
+  .performance-medium canvas,
+  .performance-low canvas {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 768px) {
+    .will-change-transform {
+      will-change: auto;
+    }
+    
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .animate-pulse,
+    .animate-spin,
+    .animate-bounce {
+      animation-duration: 3s;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-cosmic-pulse,
+    .animate-float-3d,
+    .animate-aurora,
+    .animate-particle {
+      animation: none;
+    }
+    
+    canvas {
+      transform: none !important;
+    }
   }
 }
