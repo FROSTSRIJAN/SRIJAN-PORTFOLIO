@@ -20,7 +20,7 @@ const NavBar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 180;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -44,8 +44,8 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-glass-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-background/55 backdrop-blur-xl supports-[backdrop-filter]:bg-background/45">
+      <div className="w-full px-3 sm:px-5 lg:px-7">
         <div className="flex justify-between items-center h-16">
           <div className="font-bold text-xl bg-hero-gradient bg-clip-text text-transparent">
             Srijan Mani Tripathi
@@ -57,10 +57,10 @@ const NavBar = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                className={`rounded-full px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-[1.03] ${
                   activeSection === item.id
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-primary/20 text-primary shadow-[0_0_18px_rgba(99,102,241,0.3)]"
+                    : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
                 }`}
               >
                 {item.label}
@@ -68,8 +68,8 @@ const NavBar = () => {
             ))}
             <Button 
               size="sm" 
-              className="ml-4 bg-primary hover:bg-primary/90 shadow-glow"
-              onClick={() => window.open('/resume.pdf', '_blank')}
+              className="ml-4 bg-primary hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-[1.03]"
+              onClick={() => window.open('/assets/resume.pdf', '_blank')}
             >
               <Download className="w-4 h-4 mr-2" />
               Resume
@@ -91,15 +91,15 @@ const NavBar = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden animate-fade-in">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-md border border-glass-border rounded-lg mt-2 mb-4">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-card/90 backdrop-blur-xl border border-white/10 rounded-xl mt-2 mb-4 shadow-2xl">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md ${
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium transition-all duration-300 rounded-md ${
                     activeSection === item.id
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      ? "text-primary bg-primary/15"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
                   }`}
                 >
                   {item.label}
@@ -107,9 +107,9 @@ const NavBar = () => {
               ))}
               <Button 
                 size="sm" 
-                className="w-full mt-3 bg-primary hover:bg-primary/90"
+                className="w-full mt-3 bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-[1.03]"
                 onClick={() => {
-                  window.open('/resume.pdf', '_blank');
+                  window.open('/assets/resume.pdf', '_blank');
                   setIsMenuOpen(false);
                 }}
               >

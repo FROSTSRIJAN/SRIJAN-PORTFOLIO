@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
+import GlowingBorder from "@/components/ui/glowing-border";
+import LetsCollaborateButton from "@/components/ui/lets-collaborate-button";
 import { useState, Suspense, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
@@ -99,47 +101,67 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
-      title: "Joint Treasurer",
-      company: "Developer Network Space (DNS)",
-      duration: "Aug 2025 – Present",
-      type: "On-site",
-      description: "Managing finances, budgeting, and operational planning for developer events. Supporting hackathons, workshops, and community-building activities.",
-      technologies: ["Leadership", "Financial Management", "Event Planning"],
-      additionalTech: ["Community Building", "Operations"],
+      title: "AI/ML Intern",
+      company: "Infosys Springboard",
+      duration: "Dec 2025 - Present",
+      type: "Remote",
+      description: "Built and evaluated AI/ML workflows focused on practical deployment readiness and measurable model quality.",
+      highlights: [
+        "Implemented model training and validation pipelines for supervised ML tasks",
+        "Improved data preprocessing quality for better downstream model performance",
+        "Tracked performance metrics and documented experimentation for reproducibility",
+      ],
+      technologies: ["Python", "Machine Learning", "Model Evaluation"],
+      additionalTech: ["Data Preprocessing", "Experiment Tracking"],
       status: "current",
       link: "#"
     },
     {
       id: 2,
+      title: "Joint Treasurer",
+      company: "Developer Network Space (DNS)",
+      duration: "Jul 2025 - Present",
+      type: "On-site",
+      description: "Managed budgeting and treasury operations while supporting execution of developer events and technical community initiatives.",
+      highlights: [
+        "Planned and monitored budgets for workshops, competitions, and club operations",
+        "Coordinated with technical and operations teams to ensure resource availability",
+        "Supported end-to-end event execution with a focus on financial transparency",
+      ],
+      technologies: ["Leadership", "Finance Operations", "Event Planning"],
+      additionalTech: ["Community Building", "Cross-team Coordination"],
+      status: "current",
+      link: "#"
+    },
+    {
+      id: 3,
       title: "Web Developer Intern",
       company: "Koshish Charitable Trust",
-      duration: "June – July 2025",
+      duration: "Jun 2025 - Aug 2025",
       type: "On-site",
-      description: "Developed and deployed the NGO's official website: koshish-org.com. Built backend & frontend features with responsive design and improved UI/UX. Paid on-site internship with direct collaboration.",
-      technologies: ["React", "Node.js", "CSS", "JavaScript"],
-      additionalTech: ["UI/UX Design", "Responsive Design"],
+      description: "Developed and delivered production-ready web features for the NGO website with responsiveness and UX improvements.",
+      highlights: [
+        "Built and shipped responsive pages and reusable UI blocks for core NGO workflows",
+        "Enhanced UI/UX consistency across desktop and mobile breakpoints",
+        "Collaborated in-person to prioritize and deliver stakeholder-facing changes quickly",
+      ],
+      technologies: ["React", "Node.js", "JavaScript", "CSS"],
+      additionalTech: ["UI/UX", "Responsive Design"],
       status: "completed",
       link: "https://koshish-org.com"
     },
     {
-      id: 3,
-      title: "AI Intern",
-      company: "Edunet Foundation",
-      duration: "June – July 2025",
-      type: "Remote",
-      description: "Assisted in developing AI/ML models for real-world problems. Worked on dataset preprocessing, training, evaluation, and optimization.",
-      technologies: ["Python", "Machine Learning", "Data Processing"],
-      additionalTech: ["Model Training", "Evaluation"],
-      status: "completed",
-      link: "#"
-    },
-    {
       id: 4,
-      title: "Coder (C, C++, Python)",
-      company: "Skolar",
-      duration: "Aug – Oct 2023",
+      title: "Coder Intern",
+      company: "SKOLAR",
+      duration: "Aug 2023 - Oct 2023",
       type: "Remote",
-      description: "Practiced competitive coding and algorithmic problem-solving. Strengthened DSA knowledge through structured assignments.",
+      description: "Strengthened programming fundamentals and DSA through structured coding tasks and problem-solving assignments.",
+      highlights: [
+        "Solved programming assignments in C, C++, and Python with a focus on logic clarity",
+        "Improved algorithmic problem-solving speed through regular coding practice",
+        "Built strong foundations in core data structures and complexity analysis",
+      ],
       technologies: ["C", "C++", "Python"],
       additionalTech: ["Data Structures", "Algorithms"],
       status: "completed",
@@ -209,8 +231,9 @@ const Experience = () => {
                   </div>
 
                   <div className={`w-full max-w-md ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
+                    <GlowingBorder disabled={false} containerClassName="rounded-xl">
                     <Card 
-                      className="bg-black/70 backdrop-blur-md border border-white/20 shadow-2xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer group"
+                      className="bg-black/70 backdrop-blur-md border border-white/20 shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.03] cursor-pointer group rounded-xl"
                       onClick={() => setSelectedExp(selectedExp === index ? null : index)}
                     >
                       <CardHeader className="relative">
@@ -250,9 +273,18 @@ const Experience = () => {
                       </CardHeader>
 
                       <CardContent className="space-y-4">
-                        <p className="text-white/80 leading-relaxed">
+                        <p className="text-white/80 leading-relaxed text-sm md:text-base">
                           {exp.description}
                         </p>
+
+                        <ul className="space-y-2">
+                          {exp.highlights.map((point: string, pointIndex: number) => (
+                            <li key={pointIndex} className="text-sm text-white/75 flex items-start gap-2">
+                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-secondary" />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
 
                         {/* Technologies */}
                         <div className="space-y-3">
@@ -299,6 +331,7 @@ const Experience = () => {
                         </Button>
                       </CardContent>
                     </Card>
+                    </GlowingBorder>
                   </div>
                 </motion.div>
               ))}
@@ -320,11 +353,9 @@ const Experience = () => {
                 From developing real-world applications to managing community operations, 
                 I bring a diverse skill set in both technical development and leadership.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium px-8 py-3">
-                  Let's Connect
-                </Button>
-                <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-3">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <LetsCollaborateButton onClick={() => window.open('mailto:srijantripathi64@gmail.com', '_self')} />
+                <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-3 transition-all duration-300 hover:scale-[1.03]" onClick={() => window.open('/assets/resume.pdf', '_blank')}>
                   View Resume
                 </Button>
               </div>

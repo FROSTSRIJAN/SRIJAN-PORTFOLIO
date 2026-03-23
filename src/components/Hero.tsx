@@ -222,7 +222,7 @@ const Hero = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-primary to-accent text-white font-bold px-8 py-4 text-lg shadow-2xl backdrop-blur-sm border border-white/20 hover:border-primary/50 transition-all duration-300"
-                onClick={() => window.open('/resume.pdf', '_blank')}
+                onClick={() => window.open('/assets/resume.pdf', '_blank', 'noopener,noreferrer')}
                 style={{ 
                   boxShadow: '0 0 30px rgba(139, 92, 246, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3)' 
                 }}
@@ -260,8 +260,8 @@ const Hero = () => {
             transition={{ duration: 1, delay: 1.2 }}
           >
             {[
-              { icon: Github, href: "https://github.com", color: "hover:text-white" },
-              { icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-400" }
+              { icon: Github, href: "https://github.com/SrijanManiTripathi", color: "hover:text-white" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/srijan-mani-tripathi-144b162a1", color: "hover:text-blue-400" }
             ].map((social, index) => (
               <motion.a
                 key={index}

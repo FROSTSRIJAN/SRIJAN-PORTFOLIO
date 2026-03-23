@@ -1,18 +1,25 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Achievements from "@/components/Achievements";
-import Education from "@/components/Education";
-import Certifications from "@/components/Certifications";
-import Contact from "@/components/Contact";
+import ShootingStars from "@/components/ui/shooting-stars";
+
+const About = lazy(() => import("@/components/About"));
+const Skills = lazy(() => import("@/components/Skills"));
+const Projects = lazy(() => import("@/components/Projects"));
+const Experience = lazy(() => import("@/components/Experience"));
+const Achievements = lazy(() => import("@/components/Achievements"));
+const Education = lazy(() => import("@/components/Education"));
+const Certifications = lazy(() => import("@/components/Certifications"));
+const Contact = lazy(() => import("@/components/Contact"));
 
 const Index = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [performanceMode, setPerformanceMode] = useState('high');
+  const performanceModeRef = useRef(performanceMode);
+
+  useEffect(() => {
+    performanceModeRef.current = performanceMode;
+  }, [performanceMode]);
 
   useEffect(() => {
     // Enhanced performance detection for dual 3D models
@@ -49,7 +56,7 @@ const Index = () => {
       }
 
       // Log performance info
-      console.log('🎮 Performance Mode:', performanceMode, '| Score:', score, '| CPU Cores:', hardwareConcurrency);
+      console.log('🎮 Performance Mode:', performanceModeRef.current, '| Score:', score, '| CPU Cores:', hardwareConcurrency);
     };
 
     checkPerformance();
@@ -59,6 +66,8 @@ const Index = () => {
     let frameCount = 0;
     let lastTime = performance.now();
     
+    let rafId = 0;
+
     const monitorPerformance = () => {
       frameCount++;
       const currentTime = performance.now();
@@ -78,29 +87,35 @@ const Index = () => {
         lastTime = currentTime;
       }
       
-      requestAnimationFrame(monitorPerformance);
+      rafId = requestAnimationFrame(monitorPerformance);
     };
     
-    requestAnimationFrame(monitorPerformance);
+    rafId = requestAnimationFrame(monitorPerformance);
     
-    return () => window.removeEventListener('resize', checkPerformance);
-  }, [performanceMode]);
+    return () => {
+      window.removeEventListener('resize', checkPerformance);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <div className={`min-h-screen bg-background relative mobile-optimized performance-${performanceMode}`}>      
+      <ShootingStars />
       {/* Main Content */}
       <div className="relative z-10">
         <NavBar />
         <main className={`${isMobile ? 'space-y-8' : 'space-y-0'}`}>
           <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Achievements />
-          <Education />
-          <Certifications />
-          <Contact />
+          <Suspense fallback={<div className="h-24" />}>
+            <About />
+            <Skills />
+            <Projects />
+            <Experience />
+            <Achievements />
+            <Education />
+            <Certifications />
+            <Contact />
+          </Suspense>
         </main>
         
         {/* Footer */}

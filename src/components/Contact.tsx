@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Youtube, Send, Download, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import GlowingBorder from "@/components/ui/glowing-border";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -84,6 +85,14 @@ const Contact = () => {
       color: "hover:text-red-400"
     }
   ];
+
+  const openCalendly = () => {
+    const calendlyUrl = "https://calendly.com/srijantripathi64";
+    const opened = window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+    if (!opened) {
+      window.location.href = calendlyUrl;
+    }
+  };
 
   return (
     <section id="contact" className="py-20 bg-muted/20">
@@ -166,21 +175,25 @@ const Contact = () => {
               {/* Quick Actions */}
               <Card className="bg-card-gradient backdrop-blur-sm border-glass-border shadow-glass">
                 <CardContent className="p-6 space-y-4">
-                  <Button 
-                    className="w-full bg-primary hover:bg-primary/90 shadow-glow"
-                    onClick={() => window.open('/resume.pdf', '_blank')}
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Resume
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => window.open('https://calendly.com/srijanmani', '_blank')}
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Schedule a Call
-                  </Button>
+                  <GlowingBorder disabled={false} containerClassName="rounded-md">
+                    <Button 
+                      className="w-full bg-primary hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-[1.03]"
+                      onClick={() => window.open('/assets/resume.pdf', '_blank', 'noopener,noreferrer')}
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      Download Resume
+                    </Button>
+                  </GlowingBorder>
+                  <GlowingBorder disabled={false} containerClassName="rounded-md">
+                    <Button 
+                      variant="outline" 
+                      className="w-full transition-all duration-300 hover:scale-[1.03]"
+                      onClick={openCalendly}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Schedule a Call
+                    </Button>
+                  </GlowingBorder>
                 </CardContent>
               </Card>
             </div>
@@ -262,7 +275,7 @@ const Contact = () => {
 
                     <Button 
                       type="submit" 
-                      className="w-full bg-primary hover:bg-primary/90 shadow-glow"
+                      className="w-full bg-primary hover:bg-primary/90 shadow-glow transition-all duration-300 hover:scale-[1.03]"
                       size="lg"
                     >
                       <Send className="w-4 h-4 mr-2" />

@@ -145,7 +145,10 @@
 
   body {
     @apply bg-background text-foreground;
-    background: var(--gradient-cosmic);
+    background:
+      radial-gradient(circle at 20% 20%, hsl(220 90% 28% / 0.28), transparent 38%),
+      radial-gradient(circle at 80% 15%, hsl(270 100% 35% / 0.25), transparent 42%),
+      var(--gradient-cosmic);
     background-attachment: fixed;
     overflow-x: hidden;
     font-synthesis: none;
@@ -158,6 +161,19 @@
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.18;
   }
 
   /* Mobile-optimized starfield */
@@ -708,6 +724,88 @@
 
   .performance-low .animate-particle {
     animation: none;
+  }
+
+  .starfield-layer {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(1px 1px at 10% 18%, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(1px 1px at 32% 42%, rgba(255, 255, 255, 0.7), transparent),
+      radial-gradient(1px 1px at 70% 12%, rgba(255, 255, 255, 0.8), transparent),
+      radial-gradient(1px 1px at 84% 74%, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(1px 1px at 56% 88%, rgba(255, 255, 255, 0.65), transparent);
+    opacity: 0.35;
+  }
+
+  .starfield-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(transparent 96%, rgba(111, 179, 255, 0.06) 100%),
+      linear-gradient(90deg, transparent 96%, rgba(111, 179, 255, 0.06) 100%);
+    background-size: 52px 52px;
+    opacity: 0.18;
+  }
+
+  .shooting-star {
+    position: absolute;
+    width: 170px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(147, 197, 253, 0.9), rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 8px rgba(147, 197, 253, 0.6));
+    opacity: 0;
+    transform: rotate(22deg);
+    animation-name: shooting-star;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+  }
+
+  .shooting-star::before {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: -1px;
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: rgba(219, 234, 254, 0.95);
+    box-shadow: 0 0 12px rgba(147, 197, 253, 0.75);
+  }
+
+  @keyframes shooting-star {
+    0% {
+      opacity: 0;
+      transform: translateX(0) translateY(0) rotate(22deg);
+    }
+    8% {
+      opacity: 0.55;
+    }
+    40% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(130vw) translateY(22vh) rotate(22deg);
+    }
+  }
+
+  .interactive-card {
+    transition: transform 300ms var(--ease-smooth), box-shadow 300ms var(--ease-smooth), filter 300ms var(--ease-smooth);
+    will-change: transform;
+  }
+
+  .interactive-card:hover {
+    transform: scale(1.03);
+  }
+
+  .interactive-button {
+    transition: transform 300ms var(--ease-smooth), box-shadow 300ms var(--ease-smooth), opacity 300ms var(--ease-smooth);
+  }
+
+  .interactive-button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 24px hsl(var(--primary) / 0.35);
   }
 
   /* Memory management */
